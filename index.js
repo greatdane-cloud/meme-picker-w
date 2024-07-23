@@ -12,6 +12,13 @@ Challenge:
 2. Iterate over the array and remove the 
    "highlight" class from each one.
 */ 
+
+    const radios = document.getElementsByClassName('radio')
+
+    for (let radio of radios){
+        radio.classList.remove('highlight')
+    }
+
     document.getElementById(e.target.id).parentElement.classList.add('highlight')
 }
 
