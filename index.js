@@ -41,25 +41,19 @@ Challenge:
 }
 
 function getMatchingCatsArray(){
+    if(document.querySelector('input[type="radio"]:checked)')){
+        const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
+        const isGif = gifsOnlyOption.checked
 
-    const isGif = gifsOnlyOption.checked
-    console.log(isGif)
+        const matchingCatsArray = catsData.filter(function(cat){
+                return cat.emotionTags.includes(selectedEmotion)
+        })
 
-    /*
-Challenge:
-1. Take control of the gifs only option checkbox.
-2. Set up a const in getMatchingCatsArray to store 
-   a boolean which will be set to true if the 
-   "gifs only" option is checked and false if it's
-   not. (Think what a good name for this const would 
-   be.)
-3. Log it out to check it's working.
-*/
+        console.log(matchingCatsArray)
 
-    if(document.querySelector('input[type="radio"]:checked')){
-    const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
-    console.log(selectedEmotion)
+
     }
+
 }
 
 function getEmotionsArray(cats){

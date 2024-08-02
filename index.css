@@ -93,10 +93,6 @@ label{
   accent-color: #bd301d;
 }
 
-.radio:last-child{
-  border-bottom: 0;
-}
-
 input[type="radio"]{
   cursor: pointer;
 }
