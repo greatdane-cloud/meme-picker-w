@@ -5,10 +5,23 @@ const getImageBtn = document.getElementById('get-image-btn')
 const gifsOnlyOption = document.getElementById('gifs-only-option')
 const memeModalInner = document.getElementById('meme-modal-inner')
 const memeModal = document.getElementById('meme-modal')
+const memeModalCloseBtn = document.getElementById('meme-modal-close-btn')
 
 emotionRadios.addEventListener('change', highlightCheckedOption)
 
 getImageBtn.addEventListener('click', renderCat)
+
+memeModalCloseBtn.addEventListener('click', closeModal)
+
+function closeModal(){
+    memeModal.style.display = 'none'
+}
+
+/*
+Challenge:
+1. Wire up the X button in the modal so
+   it closes the modal.
+*/ 
 
 function highlightCheckedOption(e){
     const radios = document.getElementsByClassName('radio')
@@ -18,54 +31,46 @@ function highlightCheckedOption(e){
     document.getElementById(e.target.id).parentElement.classList.add('highlight')
 }
 
-
 function getMatchingCatsArray(){     
     if(document.querySelector('input[type="radio"]:checked')){
         const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
         const isGif = gifsOnlyOption.checked
         
         const matchingCatsArray = catsData.filter(function(cat){
-
-        if(isGif){
-            return cat.emotionTags.includes(selectedEmotion) && cat.isGif
-        } 
-        
-        else {
-            return cat.emotionTags.includes(selectedEmotion)
-        }
             
+            if(isGif){
+                return cat.emotionTags.includes(selectedEmotion) && cat.isGif
+            }
+            else{
+                return cat.emotionTags.includes(selectedEmotion)
+            }            
         })
-        
-          return (matchingCatsArray)
+        return matchingCatsArray 
+    }  
+}
 
 function getSingleCatObject(){
-
     const catsArray = getMatchingCatsArray()
-
-    if (catsArray.length === 1){
+    
+    if(catsArray.length === 1){
         return catsArray[0]
-    } 
-    else {
-
+    }
+    else{
         const randomNumber = Math.floor(Math.random() * catsArray.length)
         return catsArray[randomNumber]
     }
 }
 
 function renderCat(){
-    getSingleCatObject()
-}
-
-/*
-Challenge:
-1. Use the .filter() and .includes() methods to get 
-   an array of cats which have the selected emotion
-   in their emotionTags array. 
-2. Store this array in a const and log it out to check
-   it's working. Think: what would be a good name for the
-   const?
-*/  
-    }  
+    const catObject = getSingleCatObject()
+    memeModalInner.innerHTML =  `
+        <img 
+        class="cat-img" 
+        src="./images/${catObject.image}"
+        alt="${catObject.alt}"
+        >
+        `
+    memeModal.style.display = 'flex'
 }
 
 function getEmotionsArray(cats){
@@ -79,7 +84,6 @@ function getEmotionsArray(cats){
     }
     return emotionsArray
 }
-
 
 function renderEmotionsRadios(cats){
         
